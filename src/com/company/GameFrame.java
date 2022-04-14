@@ -1,39 +1,45 @@
 package com.company;
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.Color;
+
 
 public class GameFrame extends JFrame implements KeyListener {
-    JLabel trashCan;
+    Bin player;
+    boolean gameOver;
+    int score;
+    int GAME_SIZE_X = 600;
+    int GAME_SIZE_Y = 600;
+    int DEFAULT_WIDTH = 50;
+    int DEFAULT_HEIGHT = 50;
+    int DEFAULT_SPEED = 10;
+    int DEFAULT_POSITION_X = ((GAME_SIZE_X-16)/2)-(DEFAULT_WIDTH/2);
+    int DEFAULT_POSITION_y = GAME_SIZE_Y-(2*DEFAULT_HEIGHT);
+
     GameFrame(){
+        this.score=0;
+        this.gameOver=false;
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(800,800);
+        this.setSize(GAME_SIZE_X,GAME_SIZE_Y);
         this.setLayout(null);
         this.addKeyListener(this);
         this.setResizable(false);
         this.setTitle("Trash Game");
-        trashCan = new JLabel();
-        trashCan.setBounds(20,650,100,100);
-        trashCan.setBackground(Color.RED);
-        trashCan.setOpaque(true);
-        this.add(trashCan);
+        player = new Bin(DEFAULT_POSITION_X,DEFAULT_POSITION_y,DEFAULT_WIDTH,DEFAULT_HEIGHT,DEFAULT_SPEED);
+        player.adjustBoundariesToGameBoard(600,600);
+        this.add(player);
         this.setVisible(true);
     }
 
+    public void checkCollision(){
 
+    }
     @Override
     public void keyTyped(KeyEvent e) {
-        switch (e.getKeyChar()){
-            case'a': trashCan.setLocation(trashCan.getX()-10,trashCan.getY());
-                break;
-            case'A': trashCan.setLocation(trashCan.getX()-10,trashCan.getY());
-                break;
-            case 'd': trashCan.setLocation(trashCan.getX()+10,trashCan.getY());
-                break;
-            case 'D': trashCan.setLocation(trashCan.getX()+10,trashCan.getY());
-                break;
-            default:
+        if(!gameOver){
+            player.keyPressed(Character.toLowerCase(e.getKeyChar()));
+            checkCollision();
         }
     }
 

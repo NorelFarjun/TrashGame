@@ -7,7 +7,7 @@ import java.awt.event.KeyListener;
 
 public class GameFrame extends JFrame implements KeyListener {
     Bin player;
-    JLabel background;
+    Background background;
     boolean gameOver;
     int score;
     int GAME_SIZE_X = 600;
@@ -28,12 +28,8 @@ public class GameFrame extends JFrame implements KeyListener {
         this.setResizable(false);
         this.setTitle("Trash Game");
         player = new Bin(DEFAULT_POSITION_X,DEFAULT_POSITION_y,DEFAULT_WIDTH,DEFAULT_HEIGHT,DEFAULT_SPEED);
-        player.adjustBoundariesToGameBoard(600,600);
-        this.background=new JLabel();
-        this.background.setSize(600,600);
-        this.background.setBackground(new java.awt.Color(200,210,230));
-        this.background.add(player);
-        this.background.setOpaque(true);
+        player.adjustBoundariesToGameBoard(GAME_SIZE_X,GAME_SIZE_Y);
+        background = new Background(player,GAME_SIZE_X,GAME_SIZE_Y);
         this.add(background);
         this.setVisible(true);
     }

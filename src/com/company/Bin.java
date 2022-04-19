@@ -1,9 +1,9 @@
 package com.company;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 
-public class Bin extends JLabel {
+
+public class Bin extends JPanel {
     Color color;
     int speed;
     int BORDER_X = 0;
@@ -15,6 +15,7 @@ public class Bin extends JLabel {
         this.setOpaque(true);
         this.speed=speed;
     }
+
     public void keyPressed(char key){
         switch (key){
             case 'a': {
@@ -25,7 +26,7 @@ public class Bin extends JLabel {
             }
             break;
             case 'd': {
-                if(this.getX()+this.getWidth()+speed > 584){
+                if(this.getX()+this.getWidth()+speed > BORDER_X){
                     setLocation(BORDER_X-this.getWidth(),this.getY());
                 }
                 else setLocation(this.getX()+this.speed,this.getY());
@@ -49,7 +50,7 @@ public class Bin extends JLabel {
         }
     }
     // copy of Shape.intersects
-    public boolean intersects(JLabel r) {
+    public boolean intersects(JPanel r) {
         int tw = this.getWidth();
         int th = this.getHeight();
         int rw = r.getWidth();

@@ -1,6 +1,5 @@
 package com.company;
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -8,8 +7,6 @@ import java.awt.event.KeyListener;
 public class GameFrame extends JFrame implements KeyListener {
     Bin player;
     Background background;
-    boolean gameOver;
-    int score;
     int GAME_SIZE_X = 600;
     int GAME_SIZE_Y = 600;
     int DEFAULT_WIDTH = 50;
@@ -19,8 +16,6 @@ public class GameFrame extends JFrame implements KeyListener {
     int DEFAULT_POSITION_y = GAME_SIZE_Y-(2*DEFAULT_HEIGHT);
 
     GameFrame(){
-        this.score=0;
-        this.gameOver=false;
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(GAME_SIZE_X,GAME_SIZE_Y);
         this.setLayout(null);
@@ -34,24 +29,18 @@ public class GameFrame extends JFrame implements KeyListener {
         this.setVisible(true);
     }
 
-    public void checkCollision(){
-
-    }
     @Override
     public void keyTyped(KeyEvent e) {
-        if(!gameOver){
-            player.keyPressed(Character.toLowerCase(e.getKeyChar()));
-            checkCollision();
-        }
+
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-
+        background.keyTyped(e.getKeyChar());
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-
+        background.removeOrder(e.getKeyChar());
     }
 }

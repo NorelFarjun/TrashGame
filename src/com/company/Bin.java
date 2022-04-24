@@ -1,56 +1,64 @@
 package com.company;
 import javax.swing.*;
 import java.awt.*;
+import java.util.HashSet;
+import java.util.PriorityQueue;
+import java.util.Queue;
+import java.util.Set;
 
 
-public class Bin extends JPanel {
-    Color color;
-    int speed;
-    int BORDER_X = 0;
-    int BORDER_Y = 0;
+public class Bin extends JLabel {
+    private int speed;
+    private int BORDER_X = 0;
+    private int BORDER_Y = 0;
+    private Set<Character> movementSet;
 
-    public Bin(int x, int y, int width, int height, int speed){
-        this.setBounds(x,y,width,height);
+    public Bin(int x, int y, int width, int height, int speed) {
+        this.setBounds(x, y, width, height);
         this.setBackground(Color.red);
         this.setOpaque(true);
-        this.speed=speed;
+        this.speed = speed;
+        movementSet = new HashSet<>();
     }
 
-    public void keyPressed(char key){
-        switch (key){
-            case 'a': {
-                if(this.getX() - speed < 0){
-                    this.setLocation(0, this.getY());
+    public void keyPressed(char key) {
+        if (!(key == 'a' || key == 'w' || key == 's' || key == 'd')) { // if invalid input, return
+            return;
+        }
+        movementSet.add(key);
+        for (char order : movementSet) {
+            switch (order) {
+                case 'a': {
+                    if (this.getX() - speed < 0) {
+                        this.setLocation(0, this.getY());
+                    } else setLocation(this.getX() - speed, this.getY());
                 }
-                else setLocation(this.getX()-speed,this.getY());
-            }
-            break;
-            case 'd': {
-                if(this.getX()+this.getWidth()+speed > BORDER_X){
-                    setLocation(BORDER_X-this.getWidth(),this.getY());
+                break;
+                case 'd': {
+                    if (this.getX() + this.getWidth() + speed > BORDER_X) {
+                        setLocation(BORDER_X - this.getWidth(), this.getY());
+                    } else setLocation(this.getX() + this.speed, this.getY());
                 }
-                else setLocation(this.getX()+this.speed,this.getY());
-            }
-            break;
-            case 'w': {
-                if(this.getY()-speed < 0){
-                    setLocation(this.getX(),0);
+                break;
+                case 'w': {
+                    if (this.getY() - speed < 0) {
+                        setLocation(this.getX(), 0);
+                    } else setLocation(this.getX(), this.getY() - this.speed);
                 }
-                else setLocation(this.getX(),this.getY()-this.speed);
-            }
-            break;
-            case 's': {
-                if(this.getY()+this.getHeight()+speed > BORDER_Y){
-                    setLocation(this.getX(),BORDER_Y-this.getHeight());
+                break;
+                case 's': {
+                    if (this.getY() + this.getHeight() + speed > BORDER_Y) {
+                        setLocation(this.getX(), BORDER_Y - this.getHeight());
+                    } else setLocation(this.getX(), this.getY() + this.speed);
                 }
-                else setLocation(this.getX(),this.getY()+this.speed);
+                break;
+                default:
             }
-            break;
-            default:
         }
     }
+
     // copy of Shape.intersects
-    public boolean intersects(JPanel r) {
+    public boolean intersects(TrashBag r) {
         int tw = this.getWidth();
         int th = this.getHeight();
         int rw = r.getWidth();
@@ -73,8 +81,13 @@ public class Bin extends JPanel {
                 (th < ty || th > ry));
     }
 
-    public void adjustBoundariesToGameBoard(int width, int height){
-        BORDER_X = width-16;
-        BORDER_Y = height-39;
+    public void adjustBoundariesToGameBoard(int width, int height) {
+        BORDER_X = width - 16;
+        BORDER_Y = height - 39;
     }
+
+    public void removeOrder(char key){
+        movementSet.remove(key);
+    }
+
 }

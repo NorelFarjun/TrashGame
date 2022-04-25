@@ -6,13 +6,12 @@ import java.awt.event.KeyListener;
 
 
 public class GameFrame extends JFrame implements KeyListener {
-    private final Bin player;
     private final Background background;
     private final JLabel scoreBar;
     private int score;
-    private final Repo repo = new Repo();
 
     public GameFrame(){
+        final Repo repo = new Repo();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(repo.GAME_SIZE_X,repo.GAME_SIZE_Y+repo.DEFAULT_SCORE_BAR_HEIGTH);
         this.setLayout(null);
@@ -27,7 +26,7 @@ public class GameFrame extends JFrame implements KeyListener {
         scoreBar.setOpaque(true);
         this.add(scoreBar);
 
-        player = new Bin(repo.DEFAULT_POSITION_X,repo.DEFAULT_POSITION_y,repo.DEFAULT_PLAYER_WIDTH,repo.DEFAULT_PLAYER_HEIGHT,repo.DEFAULT_SPEED);
+        final Bin player = new Bin(repo.DEFAULT_POSITION_X,repo.DEFAULT_POSITION_y,repo.DEFAULT_PLAYER_WIDTH,repo.DEFAULT_PLAYER_HEIGHT,repo.DEFAULT_SPEED);
         background = new Background(player,repo.GAME_SIZE_X,repo.GAME_SIZE_Y, this);
         this.add(background);
         this.setVisible(true);

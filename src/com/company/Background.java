@@ -1,36 +1,47 @@
 package com.company;
-
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Random;
 
 public class Background extends JLabel{
 
-    ArrayList<TrashBag> bags;
-    Bin player;
-    boolean gameOver;
-    int score;
+
+    private Bin player;
+    private GameFrame myFrame;
+    private boolean gameRuning;
+    private int score;
+    private Repo repo;
 
     Random random = new Random();
 
-    public Background(Bin player, int x, int y){
+    public Background(Bin player, int x, int y, GameFrame myFrame){
+        repo = new Repo();
+        this.myFrame = myFrame;
         this.setSize(x,y);
-        this.setBackground(new java.awt.Color(200,210,230));
-        this.setOpaque(true);
         this.player=player;
-        bags = new ArrayList<TrashBag>();
         this.add(player);
-        this.gameOver=false;
+        this.gameRuning=true;
         this.score=0;
-        this.initList();
-        moveCoins();
+        moveTrashBags();
     }
 
-    private void moveCoins() {
+    private void moveTrashBags() {
+        ArrayList<TrashBag> bags = new ArrayList<TrashBag>();
+        this.initList(bags);
         new Thread(() -> {
             while (true){
                 for(TrashBag bag : bags){
-                    bag.move();
+                    if(gameRuning){
+                        bag.move();
+                        if(CheckCollision(bag)){
+                            score++;
+                            myFrame.upDateScore(score);
+                            repositionTrashBag(bag);
+                        }
+                        if(CheckIfoUtsideFieldBoundary(bag)){
+                            repositionTrashBag(bag);
+                        }
+                    }
                 }
                 try {
                     Thread.sleep(100);
@@ -41,32 +52,46 @@ public class Background extends JLabel{
         }).start();
     }
 
-    public void keyTyped(char key){
-        if(!gameOver){
+    public void keyPressed(char key){
+        if(gameRuning){
             player.keyPressed(Character.toLowerCase(key));
         }
     }
     public void removeOrder(char key){
-        if(!gameOver){
+        if(gameRuning){
             player.removeOrder(Character.toLowerCase(key));
         }
     }
 
-    private void CheckCollision(TrashBag bag){
+    private boolean CheckCollision(TrashBag bag){
         if(player.intersects(bag)){
-            this.remove(bag);
-            score++;
+            return true;
+        }
+        return false;
+    }
+    private boolean CheckIfoUtsideFieldBoundary(TrashBag bag){
+        if(bag.getY()>650){
+            return true;
+        }
+        return false;
+    }
+    private void initList (ArrayList<TrashBag> bags){
+        // Start with between 5 and 12 garbage bags
+        for(int i = 0; i<random.nextInt(8)+5; i++){
+            addTrashBagToList(bags);
         }
     }
-    private void initList (){
-        // Start with between 3 and 10 garbage bags
-        for(int i = 0; i<random.nextInt(8)+3; i++){
-            //Each garbage bag gets a random position on the x-axis and a random speed between 4 and 8
-            TrashBag bag = new TrashBag(random.nextInt(584),-50,random.nextInt(4)+4);
-            bags.add(bag);
-            this.add(bag);
-        }
+
+    private void addTrashBagToList(ArrayList<TrashBag> bags){
+        //Each garbage bag gets a random position on the x-axis and a random speed between 4 and 8
+        TrashBag bag = new TrashBag(random.nextInt(repo.GAME_BOUNDS_X),(random.nextInt(600)+100)*(-1),random.nextInt(4)+4);
+        bags.add(bag);
+        this.add(bag);
     }
+    private void repositionTrashBag(TrashBag bag){
+        bag.setLocation(random.nextInt(repo.GAME_BOUNDS_X),(random.nextInt(600)+100)*(-1));
+    }
+
 }
 
 

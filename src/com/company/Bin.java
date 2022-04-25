@@ -1,9 +1,6 @@
 package com.company;
 import javax.swing.*;
-import java.awt.*;
 import java.util.HashSet;
-import java.util.PriorityQueue;
-import java.util.Queue;
 import java.util.Set;
 
 
@@ -12,11 +9,17 @@ public class Bin extends JLabel {
     private int BORDER_X = 0;
     private int BORDER_Y = 0;
     private Set<Character> movementSet;
+    private Repo repo;
 
     public Bin(int x, int y, int width, int height, int speed) {
+        repo = new Repo();
+        BORDER_X = repo.GAME_BOUNDS_X;
+        BORDER_Y = repo.GAME_BOUNDS_Y;
         this.setBounds(x, y, width, height);
-        this.setBackground(Color.red);
-        this.setOpaque(true);
+        //this.setBackground(Color.red);
+        //ImageIcon image = new ImageIcon("bin.png");
+        //this.setIcon(image);
+        //this.setOpaque(true);
         this.speed = speed;
         movementSet = new HashSet<>();
     }
@@ -79,11 +82,6 @@ public class Bin extends JLabel {
                 (rh < ry || rh > ty) &&
                 (tw < tx || tw > rx) &&
                 (th < ty || th > ry));
-    }
-
-    public void adjustBoundariesToGameBoard(int width, int height) {
-        BORDER_X = width - 16;
-        BORDER_Y = height - 39;
     }
 
     public void removeOrder(char key){

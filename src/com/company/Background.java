@@ -39,7 +39,7 @@ public class Background extends JLabel{
                             myFrame.upDateScore(score);
                             repositionTrashBag(bag);
                         }
-                        if(CheckIfoUtsideFieldBoundary(bag)){
+                        else if(CheckIfoUtsideFieldBoundary(bag)){
                             repositionTrashBag(bag);
                         }
                     }

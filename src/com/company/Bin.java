@@ -1,16 +1,15 @@
 package com.company;
 import javax.swing.*;
-import java.awt.*;
 import java.util.HashSet;
 import java.util.Set;
 
 
 public class Bin extends JLabel {
-    private int speed;
-    private int BORDER_X = 0;
-    private int BORDER_Y = 0;
-    private Set<Character> movementSet;
-    private Repo repo;
+    private final int speed;
+    private int BORDER_X;
+    private int BORDER_Y;
+    private final Set<Character> movementSet;
+    private final Repo repo;
 
     public Bin(int x, int y, int width, int height, int speed) {
         repo = new Repo();

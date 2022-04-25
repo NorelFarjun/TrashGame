@@ -1,7 +1,5 @@
 package com.company;
-
 import javax.swing.*;
-import java.awt.*;
 
 public class TrashBag extends JLabel {
     int speed;
@@ -15,7 +13,7 @@ public class TrashBag extends JLabel {
 
     public boolean move(){
         this.setLocation(this.getX(), this.getY()+speed);
-        if (this.getY() > 600){
+        if (this.getY() > repo.GAME_SIZE_Y){
             return false;
         }
         return true;

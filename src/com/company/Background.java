@@ -6,11 +6,12 @@ import java.util.Random;
 public class Background extends JLabel{
 
 
-    private Bin player;
-    private GameFrame myFrame;
+    private final Bin player;
+    private final GameFrame myFrame;
+    private final Repo repo;
     private boolean gameRuning;
     private int score;
-    private Repo repo;
+
 
     Random random = new Random();
 
@@ -26,7 +27,7 @@ public class Background extends JLabel{
     }
 
     private void moveTrashBags() {
-        ArrayList<TrashBag> bags = new ArrayList<TrashBag>();
+        ArrayList<TrashBag> bags = new ArrayList<>();
         this.initList(bags);
         new Thread(() -> {
             while (true){
@@ -83,13 +84,13 @@ public class Background extends JLabel{
     }
 
     private void addTrashBagToList(ArrayList<TrashBag> bags){
-        //Each garbage bag gets a random position on the x-axis and a random speed between 4 and 8
-        TrashBag bag = new TrashBag(random.nextInt(repo.GAME_BOUNDS_X),(random.nextInt(600)+100)*(-1),random.nextInt(4)+4);
+        //Each garbage bag gets a random position on the x-axis and a random speed between 6 and 10
+        TrashBag bag = new TrashBag(random.nextInt(repo.GAME_BOUNDS_X),(random.nextInt(600)+100)*(-1),random.nextInt(6)+4);
         bags.add(bag);
         this.add(bag);
     }
     private void repositionTrashBag(TrashBag bag){
-        bag.setLocation(random.nextInt(repo.GAME_BOUNDS_X-repo.DEFAULT_BAGS_WIDTH),(random.nextInt(repo.GAME_SIZE_Y)+100)*(-1));
+        bag.setLocation(random.nextInt(repo.GAME_SIZE_X - repo.DEFAULT_BAGS_WIDTH),(random.nextInt(repo.GAME_SIZE_Y)+100)*(-1));
     }
 
 }

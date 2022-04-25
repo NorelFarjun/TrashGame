@@ -12,13 +12,13 @@ public class GameFrame extends JFrame implements KeyListener {
 
     public GameFrame(){
         final Repo repo = new Repo();
+
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(repo.GAME_SIZE_X,repo.GAME_SIZE_Y+repo.DEFAULT_SCORE_BAR_HEIGTH);
+        this.setSize(repo.GAME_SIZE_X,repo.GAME_SIZE_Y + repo.DEFAULT_SCORE_BAR_HEIGTH);
         this.setLayout(null);
         this.addKeyListener(this);
         this.setResizable(false);
         this.setTitle("Trash Game");
-        score=0;
 
         scoreBar = new JLabel("Score: "+score);
         scoreBar.setBounds(0,repo.GAME_BOUNDS_Y,repo.GAME_BOUNDS_X,repo.DEFAULT_SCORE_BAR_HEIGTH);

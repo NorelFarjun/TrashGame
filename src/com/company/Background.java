@@ -16,6 +16,7 @@ public class Background extends JLabel{
 
     public Background(Bin player, int x, int y, GameFrame myFrame){
         repo = new Repo();
+
         this.myFrame = myFrame;
         this.setSize(x,y);
         this.player=player;
@@ -68,7 +69,7 @@ public class Background extends JLabel{
         return false;
     }
     private boolean CheckIfoUtsideFieldBoundary(TrashBag bag){
-        if(bag.getY()>650){
+        if(bag.getY()>repo.GAME_SIZE_Y+repo.DEFAULT_PLAYER_HEIGHT){
             return true;
         }
         return false;
@@ -82,7 +83,7 @@ public class Background extends JLabel{
 
     private void addTrashBagToList(ArrayList<TrashBag> bags){
         //Each garbage bag gets a random position on the x-axis and a random speed between 6 and 10
-        TrashBag bag = new TrashBag(random.nextInt(repo.GAME_BOUNDS_X-repo.DEFAULT_BAGS_WIDTH),(random.nextInt(600)+100)*(-1),random.nextInt(6)+4);
+        TrashBag bag = new TrashBag(random.nextInt(repo.GAME_BOUNDS_X-repo.DEFAULT_BAGS_WIDTH),(random.nextInt(repo.GAME_SIZE_Y)+100)*(-1),random.nextInt(6)+4);
         bags.add(bag);
         this.add(bag);
     }

@@ -9,17 +9,16 @@ public class Bin extends JLabel {
     private int BORDER_X;
     private int BORDER_Y;
     private final Set<Character> movementSet;
+
     private final Repo repo;
 
     public Bin(int x, int y, int width, int height, int speed) {
         repo = new Repo();
+
         BORDER_X = repo.GAME_BOUNDS_X;
         BORDER_Y = repo.GAME_BOUNDS_Y;
         this.setBounds(x, y, width, height);
-        this.setVerticalAlignment(JLabel.CENTER);
         this.setIcon(new ImageIcon("finalBin_trueSize.png"));
-
-
 
         this.speed = speed;
         movementSet = new HashSet<>();

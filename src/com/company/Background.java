@@ -10,7 +10,6 @@ public class Background extends JLabel{
     private final GameFrame myFrame;
     private final Repo repo;
     private boolean gameRuning;
-    private int score;
 
 
     Random random = new Random();
@@ -22,7 +21,6 @@ public class Background extends JLabel{
         this.player=player;
         this.add(player);
         this.gameRuning=true;
-        this.score=0;
         moveTrashBags();
     }
 
@@ -35,8 +33,7 @@ public class Background extends JLabel{
                     if(gameRuning){
                         bag.move();
                         if(CheckCollision(bag)){
-                            score++;
-                            myFrame.upDateScore(score);
+                            myFrame.addScore();
                             repositionTrashBag(bag);
                         }
                         else if(CheckIfoUtsideFieldBoundary(bag)){
@@ -85,7 +82,7 @@ public class Background extends JLabel{
 
     private void addTrashBagToList(ArrayList<TrashBag> bags){
         //Each garbage bag gets a random position on the x-axis and a random speed between 6 and 10
-        TrashBag bag = new TrashBag(random.nextInt(repo.GAME_BOUNDS_X),(random.nextInt(600)+100)*(-1),random.nextInt(6)+4);
+        TrashBag bag = new TrashBag(random.nextInt(repo.GAME_BOUNDS_X-repo.DEFAULT_BAGS_WIDTH),(random.nextInt(600)+100)*(-1),random.nextInt(6)+4);
         bags.add(bag);
         this.add(bag);
     }

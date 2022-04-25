@@ -33,8 +33,8 @@ public class GameFrame extends JFrame implements KeyListener {
         this.setVisible(true);
     }
 
-    public void upDateScore(int newScore){
-        score = newScore;
+    public void addScore(){
+        score++;
         scoreBar.setText("Score: "+score);
     }
 

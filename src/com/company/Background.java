@@ -89,7 +89,7 @@ public class Background extends JLabel{
         this.add(bag);
     }
     private void repositionTrashBag(TrashBag bag){
-        bag.setLocation(random.nextInt(repo.GAME_BOUNDS_X),(random.nextInt(600)+100)*(-1));
+        bag.setLocation(random.nextInt(repo.GAME_BOUNDS_X-repo.DEFAULT_BAGS_WIDTH),(random.nextInt(repo.GAME_SIZE_Y)+100)*(-1));
     }
 
 }

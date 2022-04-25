@@ -5,11 +5,12 @@ import java.awt.*;
 
 public class TrashBag extends JLabel {
     int speed;
+    Repo repo;
     public TrashBag(int x, int y, int speed){
         this.speed = speed;
-        this.setBounds(x,y,20,20);
-        this.setBackground(Color.BLUE);
-        this.setOpaque(true);
+        repo = new Repo();
+        this.setBounds(x,y,repo.DEFAULT_BAGS_WIDTH,repo.DEFAULT_BAGS_HEIGHT);
+        this.setIcon(new ImageIcon("finalBag_trueSize.png"));
     }
 
     public boolean move(){

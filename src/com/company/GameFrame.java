@@ -26,6 +26,8 @@ public class GameFrame extends JFrame implements KeyListener {
         scoreBar = new JLabel("Score: "+String.valueOf(score));
         scoreBar.setBounds(0,repo.GAME_BOUNDS_Y,repo.GAME_BOUNDS_X,repo.DEFAULT_SCORE_BAR_HEIGTH);
         scoreBar.setBackground(Color.lightGray);
+        scoreBar.setVerticalTextPosition(JLabel.CENTER);
+        scoreBar.setVerticalTextPosition(JLabel.CENTER);
         scoreBar.setOpaque(true);
         this.add(scoreBar);
         this.setVisible(true);
@@ -41,11 +43,13 @@ public class GameFrame extends JFrame implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
+
         background.keyPressed(e.getKeyChar());
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
+
         background.removeOrder(e.getKeyChar());
     }
 }

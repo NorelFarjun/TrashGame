@@ -1,5 +1,6 @@
 package com.company;
 import javax.swing.*;
+import java.awt.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,10 +17,11 @@ public class Bin extends JLabel {
         BORDER_X = repo.GAME_BOUNDS_X;
         BORDER_Y = repo.GAME_BOUNDS_Y;
         this.setBounds(x, y, width, height);
-        //this.setBackground(Color.red);
-        //ImageIcon image = new ImageIcon("bin.png");
-        //this.setIcon(image);
-        //this.setOpaque(true);
+        this.setVerticalAlignment(JLabel.CENTER);
+        this.setIcon(new ImageIcon("finalBin_trueSize.png"));
+
+
+
         this.speed = speed;
         movementSet = new HashSet<>();
     }

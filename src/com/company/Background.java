@@ -8,18 +8,16 @@ public class Background extends JLabel{
 
     private final Bin player;
     private final GameFrame myFrame;
-    private final Repo repo;
     private boolean gameRuning;
 
 
     Random random = new Random();
 
-    public Background(Bin player, int x, int y, GameFrame myFrame){
-        repo = new Repo();
+    public Background(int x, int y, GameFrame myFrame){
 
         this.myFrame = myFrame;
         this.setSize(x,y);
-        this.player=player;
+        player = new Bin(Repo.DEFAULT_POSITION_X, Repo.DEFAULT_POSITION_y, Repo.DEFAULT_PLAYER_WIDTH, Repo.DEFAULT_PLAYER_HEIGHT, Repo.DEFAULT_SPEED);
         this.add(player);
         this.gameRuning=true;
         moveTrashBags();
@@ -69,26 +67,26 @@ public class Background extends JLabel{
         return false;
     }
     private boolean CheckIfoUtsideFieldBoundary(TrashBag bag){
-        if(bag.getY()>repo.GAME_SIZE_Y+repo.DEFAULT_PLAYER_HEIGHT){
+        if(bag.getY() > Repo.GAME_SIZE_Y + Repo.DEFAULT_PLAYER_HEIGHT){
             return true;
         }
         return false;
     }
     private void initList (ArrayList<TrashBag> bags){
         // Start with between 5 and 12 garbage bags
-        for(int i = 0; i<random.nextInt(8)+5; i++){
+        for(int i = 0; i < random.nextInt(8) + 5; i++){
             addTrashBagToList(bags);
         }
     }
 
     private void addTrashBagToList(ArrayList<TrashBag> bags){
         //Each garbage bag gets a random position on the x-axis and a random speed between 6 and 10
-        TrashBag bag = new TrashBag(random.nextInt(repo.GAME_BOUNDS_X-repo.DEFAULT_BAGS_WIDTH),(random.nextInt(repo.GAME_SIZE_Y)+100)*(-1),random.nextInt(6)+4);
+        TrashBag bag = new TrashBag(random.nextInt(Repo.GAME_BOUNDS_X-Repo.DEFAULT_BAGS_WIDTH),(random.nextInt(Repo.GAME_SIZE_Y)+100)*(-1),random.nextInt(6)+4);
         bags.add(bag);
         this.add(bag);
     }
     private void repositionTrashBag(TrashBag bag){
-        bag.setLocation(random.nextInt(repo.GAME_SIZE_X - repo.DEFAULT_BAGS_WIDTH),(random.nextInt(repo.GAME_SIZE_Y)+100)*(-1));
+        bag.setLocation(random.nextInt(Repo.GAME_SIZE_X - Repo.DEFAULT_BAGS_WIDTH),(random.nextInt(Repo.GAME_SIZE_Y)+100) * (-1));
     }
 
 }

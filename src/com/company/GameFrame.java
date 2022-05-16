@@ -11,30 +11,29 @@ public class GameFrame extends JFrame implements KeyListener {
     private int score;
 
     public GameFrame(){
-        final Repo repo = new Repo();
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(repo.GAME_SIZE_X,repo.GAME_SIZE_Y + repo.DEFAULT_SCORE_BAR_HEIGTH);
+        this.setSize(Repo.GAME_SIZE_X,Repo.GAME_SIZE_Y + Repo.DEFAULT_SCORE_BAR_HEIGTH);
         this.setLayout(null);
         this.addKeyListener(this);
         this.setResizable(false);
         this.setTitle("Trash Game");
 
-        scoreBar = new JLabel("Score: "+score);
-        scoreBar.setBounds(0,repo.GAME_BOUNDS_Y,repo.GAME_BOUNDS_X,repo.DEFAULT_SCORE_BAR_HEIGTH);
+        scoreBar = new JLabel("Score: " + score);
+        scoreBar.setBounds(0,Repo.GAME_BOUNDS_Y, Repo.GAME_BOUNDS_X, Repo.DEFAULT_SCORE_BAR_HEIGTH);
         scoreBar.setBackground(Color.lightGray);
         scoreBar.setOpaque(true);
         this.add(scoreBar);
 
-        final Bin player = new Bin(repo.DEFAULT_POSITION_X,repo.DEFAULT_POSITION_y,repo.DEFAULT_PLAYER_WIDTH,repo.DEFAULT_PLAYER_HEIGHT,repo.DEFAULT_SPEED);
-        background = new Background(player,repo.GAME_SIZE_X,repo.GAME_SIZE_Y, this);
+
+        background = new Background(Repo.GAME_SIZE_X, Repo.GAME_SIZE_Y, this);
         this.add(background);
         this.setVisible(true);
     }
 
     public void addScore(){
         score++;
-        scoreBar.setText("Score: "+score);
+        scoreBar.setText("Score: " + score);
     }
 
     @Override
